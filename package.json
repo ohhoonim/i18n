@@ -19,7 +19,17 @@
 				"command": "uanalyzeri18n.uAnalyzeri18n",
 				"title": "uAnalyzeri18n"
 			}
-		]
+		],
+		"configuration":{
+			"title": "uanalyzeri18n",
+			"properties": {
+				"uanalyzeri18n.langPath": {
+					"type": ["string", "null"],
+					"default": null,
+					"description": "Specifies the folder path containing the langs"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
