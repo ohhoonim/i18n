@@ -1,9 +1,9 @@
 {
 	"name": "uanalyzeri18n",
-	"displayName": "uAnalyzeri18n",
+	"displayName": "uAnalyzerI18n",
 	"publisher": "matthew",
 	"description": "",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.56.0"
 	},
