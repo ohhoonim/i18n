@@ -1,6 +1,7 @@
 {
 	"name": "uanalyzeri18n",
 	"displayName": "uAnalyzeri18n",
+	"publisher": "matthew",
 	"description": "",
 	"version": "0.0.1",
 	"engines": {
@@ -20,13 +21,32 @@
 				"title": "uAnalyzeri18n"
 			}
 		],
+		"menus": {
+		  "editor/context": [
+			{
+			  "when": "editor/context",
+			  "command": "uanalyzeri18n.uAnalyzeri18n",
+			  "group":"navigation"
+			}
+		  ]
+		},
 		"configuration":{
 			"title": "uanalyzeri18n",
 			"properties": {
 				"uanalyzeri18n.langPath": {
-					"type": ["string", "null"],
+					"type": "string",
 					"default": null,
 					"description": "Specifies the folder path containing the langs"
+				},
+				"uanalyzeri18n.locale": {
+					"type": "string",
+					"default": "ko",
+					"description": "locale"
+				},
+				"uanalyzeri18n.format": {
+					"type": "string",
+					"default": "<span data-langnum=\"${multiLang.key}\">${multiLang.value}</span>",
+					"description": "변경할 포맷 지정 ${multiLang.key} ${multiLang.value} "
 				}
 			}
 		}

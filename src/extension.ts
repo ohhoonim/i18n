@@ -1,69 +1,57 @@
-import * as vscode from 'vscode';
-// import lang from './lang';
-const mariadb = require('mariadb');
-import vals from './consts';
-
-const pool = mariadb.createPool({
-    host: vals.host, port:vals.port,
-    user: vals.user, password: vals.pass,
-    connectionLimit: 5
-});
+import * as vscode from "vscode";
 
 export function activate(context: vscode.ExtensionContext) {
+  let disposable = vscode.commands.registerCommand(
+    "uanalyzeri18n.uAnalyzeri18n",
+    () => {
+      console.log("running extension...");
+      const langPath =
+        vscode.workspace.getConfiguration("uanalyzeri18n")["langPath"];
+      const locale =
+        vscode.workspace.getConfiguration("uanalyzeri18n")["locale"];
+      const format =
+        vscode.workspace.getConfiguration("uanalyzeri18n")["format"];
 
-	let disposable = vscode.commands.registerCommand('uanalyzeri18n.uAnalyzeri18n', () => {
-		// async function getMessageCode(msg:string, locale:string){
-			
-		// 	let conn, rows;
-		// 	try{
-		// 		conn = await pool.getConnection();
-		// 		conn.query('USE analyzerlite');
-		// 		let query = `select msg_cd, msg_val from nx_msg_dtl where mst_cd='label.language' and msg_val='${msg}' and locale_type='${locale}'`;
-		// 		// console.log(query);
-		// 		rows = await conn.query(query);
-		// 	}
-		// 	catch(err){
-		// 		throw err;
-		// 	}
-		// 	finally{
-		// 		if (conn) {
-		// 			conn.end();
-		// 		}
-		// 		return rows[0];
-		// 	}
-		// }
+      function getMessageCodeFromFile(msg: string, locale: string) {
+        const langs = require(langPath);
+        let text = getKeyByValue(langs[locale], msg);
 
-		// async function getMessageCodeFromFile(msg:string, locale:string){
-			
-			
-		// }
+        return text.key ? text : null;
+      }
 
-		// let editor = vscode.window.activeTextEditor;
-		// if (!editor) {
-		//   return vscode.window.showInformationMessage("선택된 Text가 없음.");
-		// }
-		// const selections = editor.selections[0];
-		// const selectionRange = new vscode.Range(selections.start, selections.end);
-		// const text = editor.document.getText(selectionRange);
-	
+      function getKeyByValue(langLocale: any, msg: string): any {
+        let key = Object.keys(langLocale).find(
+          (key) => langLocale[key] === msg
+        );
+        return { key: key, value: msg };
+      }
 
+      const editor = vscode.window.activeTextEditor!;
+      const selections = editor.selections;
 
-		// getMessageCode(text, 'ko').then( row => {
-		// 		if(row) {
-		// 			//window.showInformationMessage(JSON.stringify(row));
-		// 			editor!.edit((edited: vscode.TextEditorEdit) =>
-		// 				edited.replace(
-		// 				selectionRange,
-		// 				`<span data-langnum="${row.msg_cd}">${row.msg_val}</span>`
-		// 				)
-		// 			);
-		// 		} else {
-		// 			vscode.window.showInformationMessage('데이터가 없습니다.');
-		// 		}
-		// 	}).catch(err => console.log(err));
-	});
+      vscode.window.activeTextEditor!.edit((edited: vscode.TextEditorEdit) => {
+        selections.forEach((sel) => {
+          let selectionRange = new vscode.Range(sel.start, sel.end);
+          let text = editor.document.getText(selectionRange);
+          let multiLang = getMessageCodeFromFile(text, locale);
+          if (multiLang !== null && multiLang.value !== "") {
+            let replaced = format
+              .replace("${multiLang.key}", multiLang.key)
+              .replace("${multiLang.value}", multiLang.value);
+            edited.replace(
+              sel,
+              replaced
+              //`<span data-langnum="${multiLang.key}">${multiLang.value}</span>`
+            );
+          } else {
+            vscode.window.showInformationMessage("등록된 메시지가 없습니다");
+          }
+        });
+      });
+    }
+  );
 
-	context.subscriptions.push(disposable);
+  context.subscriptions.push(disposable);
 }
 
 export function deactivate() {}
