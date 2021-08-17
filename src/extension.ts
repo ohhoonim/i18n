@@ -2,15 +2,15 @@ import * as vscode from "vscode";
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand(
-    "uanalyzeri18n.uAnalyzeri18n",
+    "json-i18n.json-i18n",
     () => {
       console.log("running extension...");
       const langPath =
-        vscode.workspace.getConfiguration("uanalyzeri18n")["langPath"];
+        vscode.workspace.getConfiguration("json-i18n")["langPath"];
       const locale =
-        vscode.workspace.getConfiguration("uanalyzeri18n")["locale"];
+        vscode.workspace.getConfiguration("json-i18n")["locale"];
       const format =
-        vscode.workspace.getConfiguration("uanalyzeri18n")["format"];
+        vscode.workspace.getConfiguration("json-i18n")["format"];
 
       function getMessageCodeFromFile(msg: string, locale: string) {
         const langs = require(langPath);

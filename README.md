@@ -6,7 +6,7 @@
 
 소스코드 변환용
 
-## 설치방법
+## vsix 파일 설치방법
 
 아래 폴더에 vsix 파일 복사
 
@@ -17,9 +17,12 @@
 ## 설정
 
 * 설정에서 해당항목 참조
-
+* json-i18n.langPath 설정에 ./sample/lang.js을 참조하여 파일생성 후 파일경로 세팅
 ## Known Issues
 
-matthew@nexus.co.kr 로 메일 주세요.
+
+## 문의
+
+- donnj95@gmail.com
 
 

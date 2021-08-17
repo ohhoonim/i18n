@@ -1,6 +1,6 @@
 {
-	"name": "uanalyzeri18n",
-	"displayName": "uAnalyzerI18n",
+	"name": "json-i18n",
+	"displayName": "json-i18n",
 	"publisher": "matthew",
 	"description": "",
 	"version": "0.1.0",
@@ -11,39 +11,39 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:uanalyzeri18n.uAnalyzeri18n"
+		"onCommand:json-i18n.json-i18n"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "uanalyzeri18n.uAnalyzeri18n",
-				"title": "uAnalyzeri18n"
+				"command": "json-i18n.json-i18n",
+				"title": "json-i18n"
 			}
 		],
 		"menus": {
-		  "editor/context": [
-			{
-			  "when": "editor/context",
-			  "command": "uanalyzeri18n.uAnalyzeri18n",
-			  "group":"navigation"
-			}
-		  ]
+			"editor/context": [
+				{
+					"when": "editor/context",
+					"command": "json-i18n.json-i18n",
+					"group": "navigation"
+				}
+			]
 		},
-		"configuration":{
-			"title": "uanalyzeri18n",
+		"configuration": {
+			"title": "json-i18n",
 			"properties": {
-				"uanalyzeri18n.langPath": {
+				"json-i18n.langPath": {
 					"type": "string",
 					"default": null,
 					"description": "Specifies the folder path containing the langs"
 				},
-				"uanalyzeri18n.locale": {
+				"json-i18n.locale": {
 					"type": "string",
 					"default": "ko",
 					"description": "locale"
 				},
-				"uanalyzeri18n.format": {
+				"json-i18n.format": {
 					"type": "string",
 					"default": "<span data-langnum=\"${multiLang.key}\">${multiLang.value}</span>",
 					"description": "변경할 포맷 지정 ${multiLang.key} ${multiLang.value} "
